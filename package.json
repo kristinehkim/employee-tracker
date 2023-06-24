@@ -1,0 +1,25 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "An app to manage a company's employee database.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristinehkim/employee-tracker.git"
+  },
+  "author": "Kristine Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristinehkim/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/kristinehkim/employee-tracker#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "mysql2": "^2.2.5",
+    "util": "^0.12.5"
+  }
+}
