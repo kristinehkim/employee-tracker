@@ -14,6 +14,9 @@ const init = async () => {
             case 'View All Employees':
                 viewAllEmployees();
                 break;
+            case 'Add Role':
+                addRole();
+                break;
         }
     })
 
@@ -26,24 +29,55 @@ async function viewAllDepartments() {
     let query = 'SELECT * FROM department';
     db.query(query, (err, res) => {
         console.table(res);
+        init();
     })
-}
+};
 
 
 async function viewAllRoles() {
     let query = 'SELECT * FROM role';
     db.query(query, (err, res) => {
         console.table(res);
+        init();
     })
-}
+};
 
 
 async function viewAllEmployees() {
     let query = 'SELECT * FROM employee';
     db.query(query, (err, res) => {
         console.table(res);
+        init();
     })
-}
+};
+
+async function addRole() {
+    let role = await db.query('SELECT title, salary, department_id FROM role');
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the role?',
+            name: 'roleTitle'
+        },
+        {
+            type: 'input',
+            message: 'What is the salary of the role?',
+            name: 'salary'
+        },
+        {
+            type: 'list',
+            message: 'What department does the role belong to?',
+            choices: role.map(obj => obj.name),
+            name: 'department'
+        }
+    ]).then(response => {
+        let roleId = role.find(obj => obj.name === response.department).id
+        db.query('INSERT INTO role (title, salary, department_id) VALUES (?)', [[response.roleTitle, response.salary, roleId]]);
+        init();
+    })
+    
+};
 
 
 
