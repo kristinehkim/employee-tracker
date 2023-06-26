@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-const util = require('util')  
+const util = require('util'); 
 
 
 const db = mysql.createConnection(
@@ -14,6 +14,7 @@ const db = mysql.createConnection(
 
 db.connect()
 
+// set up our connection to use promises which allows for async await in queries
 db.query = util.promisify(db.query)
 
 module.exports = db
