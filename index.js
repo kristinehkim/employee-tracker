@@ -3,19 +3,20 @@ const inquirer = require('inquirer');
 const db = require('./config/connection');
 
 const init = async () => {
-    try {
-        const responses = await inquirer.prompt(questions);
-        switch (responses) {
+    inquirer.prompt(questions).then(response => {
+        switch (response.choices) {
             case 'View All Departments':
                 viewAllDepartments();
                 break;
-            case 'Exit Program':
-                break
+            case 'View All Roles':
+                viewAllRoles();
+                break;
+            case 'View All Employees':
+                viewAllEmployees();
+                break;
         }
-    }
-    catch (err) {
-        console.error(err)
-    }
+    })
+
 };
 
 init();
@@ -28,7 +29,6 @@ async function viewAllDepartments() {
     })
 }
 
-viewAllDepartments();
 
 async function viewAllRoles() {
     let query = 'SELECT * FROM role';
@@ -36,7 +36,7 @@ async function viewAllRoles() {
         console.table(res);
     })
 }
-viewAllRoles();
+
 
 async function viewAllEmployees() {
     let query = 'SELECT * FROM employee';
@@ -44,7 +44,7 @@ async function viewAllEmployees() {
         console.table(res);
     })
 }
-viewAllEmployees();
+
 
 
 // switch statements for what they choose call the function when they choose it

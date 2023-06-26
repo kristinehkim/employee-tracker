@@ -1,4 +1,3 @@
-// keep it in a different file or not?
 module.exports = [
     {
         type: 'list',
@@ -10,7 +9,6 @@ module.exports = [
             'Add Role',
             'View All Departments',
             'Add Department',
-            'Quit',
             'View All Employees'
         ]
     },
