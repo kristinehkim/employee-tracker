@@ -2,7 +2,7 @@ const connection = require('../config/connection');
 
 class DB {
     constructor(connection) {
-        this.connection = connection
+        this.connection = connection;
     }
     viewAllDepartments() {
         return this.connection.query(
@@ -76,6 +76,15 @@ class DB {
             SET ?`,
             employee
 
+        )
+    }
+
+    updateEmployee(employee) {
+        return this.connection.query(
+            `INSERT INTO 
+                employee
+            SET ?`,
+            employee
         )
     }
   

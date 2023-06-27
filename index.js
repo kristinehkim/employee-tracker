@@ -34,22 +34,22 @@ init();
 
 
 async function viewAllDepartments() {
-    const departments = await db.viewAllDepartments()
-    console.table(departments)
+    const departments = await db.viewAllDepartments();
+    console.table(departments);
     init();
 };
 
 
 async function viewAllRoles() {
-    const roles = await db.viewAllRoles()
-    console.table(roles)
+    const roles = await db.viewAllRoles();
+    console.table(roles);
         init();
 };
 
 
 async function viewAllEmployees() {
-    const employees = await db.viewAllEmployees()
-    console.table(employees)
+    const employees = await db.viewAllEmployees();
+    console.table(employees);
         init();
 };
 
@@ -97,18 +97,17 @@ async function addRole() {
 
 async function addEmployee() {
     const roles = await db.viewAllRoles();
-    const roleChoices = roles.map(({title, department_id}) => ({
+    console.log(roles);
+    const roleChoices = roles.map(({id, title}) => ({
         name: title,
-        value: department_id
+        value: id
     }));
-    const managers = await db.viewAllRoles();
-    const managerChoices = managers.map(({manager, manager_id}) => ({
+    const managers = await db.viewAllEmployees();
+    console.log(managers);
+    const managerChoices = managers.map(({id, manager}) => ({
         name: manager,
-        value: manager_id
+        value: id
     }));
-
-    // let employeeRole = await db.query('SELECT title FROM role');
-    // let employee = await db.query('SELECT * FROM employee');
 
     const employee = await inquirer.prompt([
         {
