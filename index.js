@@ -1,8 +1,8 @@
-const questions = require('./utils/questions');
+const questions = require('./utils/prompt');
 const inquirer = require('inquirer');
-const db = require('./config/connection');
+const db = require('./db')
 const cTable = require('console.table');
- 
+
 
 const init = async () => {
     inquirer.prompt(questions).then(response => {
@@ -16,8 +16,14 @@ const init = async () => {
             case 'View All Employees':
                 viewAllEmployees();
                 break;
+            case 'Add Department':
+                addDepartment();
+                break;
             case 'Add Role':
                 addRole();
+                break;
+            case 'Add Employee':
+                addEmployee();
                 break;
         }
     })
@@ -28,39 +34,50 @@ init();
 
 
 async function viewAllDepartments() {
-    let query = 'SELECT * FROM department';
-    db.query(query, (err, res) => {
-        console.table(res);
-        init();
-    })
+    const departments = await db.viewAllDepartments()
+    console.table(departments)
+    init();
 };
 
 
 async function viewAllRoles() {
-    let query = 'SELECT * FROM role';
-    db.query(query, (err, res) => {
-        console.table(res);
+    const roles = await db.viewAllRoles()
+    console.table(roles)
         init();
-    })
 };
 
 
 async function viewAllEmployees() {
-    let query = 'SELECT * FROM employee';
-    db.query(query, (err, res) => {
-        console.table(res);
+    const employees = await db.viewAllEmployees()
+    console.table(employees)
         init();
-    })
+};
+
+async function addDepartment() {
+    const department = await inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the name of the department?',
+            name: 'name'
+        }
+    ])
+    await db.addDepartment(department)
+    init();
 };
 
 async function addRole() {
-    let role = await db.query('SELECT title, salary, department_id FROM role');
+    const departments = await db.viewAllDepartments();
+    const departmentChoices = departments.map(({id, name}) => ({
+        name: name, 
+        value: id
+    }));
 
-    inquirer.prompt([
+
+    const role = await inquirer.prompt([
         {
             type: 'input',
             message: 'What is the name of the role?',
-            name: 'roleTitle'
+            name: 'title'
         },
         {
             type: 'input',
@@ -70,17 +87,79 @@ async function addRole() {
         {
             type: 'list',
             message: 'What department does the role belong to?',
-            choices: role.map(obj => obj.title),
-            name: 'department'
+            choices: departmentChoices,
+            name: 'department_id'
         }
-    ]).then(response => {
-        let roleId = role.find(obj => obj.title === response.department).id
-        db.query('INSERT INTO role (title, salary, department_id) VALUES (?)', [[response.roleTitle, response.salary, roleId]]);
-        init();
-    })
-    
+    ])
+    await db.addRole(role)
+    init();
 };
 
+async function addEmployee() {
+    const roles = await db.viewAllRoles();
+    const roleChoices = roles.map(({title, department_id}) => ({
+        name: title,
+        value: department_id
+    }));
+    const managers = await db.viewAllRoles();
+    const managerChoices = managers.map(({manager, manager_id}) => ({
+        name: manager,
+        value: manager_id
+    }));
+
+    // let employeeRole = await db.query('SELECT title FROM role');
+    // let employee = await db.query('SELECT * FROM employee');
+
+    const employee = await inquirer.prompt([
+        {
+            type: 'input',
+            message: "What is the employee's first name?",
+            name: 'first_name'
+        },
+        {
+            type: 'input',
+            message: "What is the employee's last name?",
+            name: 'last_name'
+        },
+        {
+            type: 'list',
+            message: "What is the employer's role?",
+            choices: roleChoices,
+            name: 'role_id'
+        },
+        {
+            type: 'list',
+            message: "Who is the employee's manager?",
+            choices: managerChoices,
+            name: 'manager_id'
+        },
+
+    ]) 
+    await db.addEmployee(employee) 
+    init();
+    };
+
+async function updateEmployee() {
+    let updateEmployee = await db.query('SELECT * FROM employee');
+    let assignedRole = await db.query('SELECT title FROM role');
+    inquirer.prompt([
+        {
+            type: 'list',
+            message: "Which employee's role do you want to update?",
+            choices: updateEmployee.map(obj => obj.first_name && obj.last_name),
+            name: 'employeeName'
+        },
+        {
+            type: 'list',
+            message: "Which role do you want to assign the selected employee?",
+            choices: assignedRole.map(obj => obj.title),
+            name: 'assignRole'
+        },
+    ]).then(response => {
+        let employeeToBeUpdated = updateEmployee.find((obj) => obj.first_name && obj.last_name === response.employee);
+        let assignRoleToEmployee = assignedRole.find((obj) => obj.title);
+    })
+}
 
 
 // switch statements for what they choose call the function when they choose it

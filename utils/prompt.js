@@ -4,12 +4,13 @@ module.exports = [
         message: 'What would you like to do?',
         name: 'choices',
         choices: [
-            'Update Employee Role',
-            'View All Roles',
-            'Add Role',
             'View All Departments',
+            'View All Roles',
+            'View All Employees',
             'Add Department',
-            'View All Employees'
+            'Add Role',
+            'Add Employee',
+            'Update Employee Role' 
         ]
     },
 ]
