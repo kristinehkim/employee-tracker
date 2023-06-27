@@ -1,6 +1,8 @@
 const questions = require('./utils/questions');
 const inquirer = require('inquirer');
 const db = require('./config/connection');
+const cTable = require('console.table');
+ 
 
 const init = async () => {
     inquirer.prompt(questions).then(response => {
@@ -68,11 +70,11 @@ async function addRole() {
         {
             type: 'list',
             message: 'What department does the role belong to?',
-            choices: role.map(obj => obj.name),
+            choices: role.map(obj => obj.title),
             name: 'department'
         }
     ]).then(response => {
-        let roleId = role.find(obj => obj.name === response.department).id
+        let roleId = role.find(obj => obj.title === response.department).id
         db.query('INSERT INTO role (title, salary, department_id) VALUES (?)', [[response.roleTitle, response.salary, roleId]]);
         init();
     })

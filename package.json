@@ -18,8 +18,11 @@
   },
   "homepage": "https://github.com/kristinehkim/employee-tracker#readme",
   "dependencies": {
+    "console.table": "0.10.0",
+    "dotenv": "^8.2.0",
     "inquirer": "^8.2.4",
     "mysql2": "^2.2.5",
     "util": "^0.12.5"
+    
   }
 }

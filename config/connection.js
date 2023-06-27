@@ -1,16 +1,24 @@
 const mysql = require('mysql2');
-const util = require('util'); 
+const util = require('util');
+require('dotenv').config();
 
 
 const db = mysql.createConnection(
     {
-        host: 'localhost',
-        user: 'root',
-        password: '!loveCoding25',
-        database: 'employeeTracker_db'
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE
     },
-    console.log('Connected to employeeTracker_db database.')
+    
 );
+db.connect((err) => {
+    if (err) {
+      console.error('Error connecting to MySQL:', err);
+      return;
+    }
+    console.log('Connected to employeeTracker_db database.');
+  });
 
 db.connect()
 
@@ -18,3 +26,7 @@ db.connect()
 db.query = util.promisify(db.query)
 
 module.exports = db
+
+// user: 'root',
+// password: '!loveCoding25',
+// database: 'employeeTracker_db'
