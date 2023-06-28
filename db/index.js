@@ -47,7 +47,6 @@ class DB {
             LEFT JOIN
                 employee manager ON employee.manager_id = manager.id
             
-            
             `
         )
     }
@@ -79,17 +78,16 @@ class DB {
         )
     }
 
-    updateEmployee(employee) {
+    updateEmployee(employee, role_id) {
         return this.connection.query(
             `UPDATE 
                 employee
             SET ?
-            WHERE ID = ?`,
-            [employee, employee.role_id]
+            WHERE id = ?`,
+            [employee, role_id]
         )
     }
   
-
 
 }
 

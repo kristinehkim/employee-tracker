@@ -135,6 +135,7 @@ async function addEmployee() {
         },
 
     ])
+    console.log(employee);
     await db.addEmployee(employee);
     init();
 };
@@ -158,8 +159,7 @@ async function updateEmployee() {
             type: 'list',
             message: "Which employee's role do you want to update?",
             choices: updateEmployeeChoices,
-            name: 'first_name',
-            name: 'last_name'
+            name: 'first_name'
         },
         {
             type: 'list',
@@ -168,6 +168,7 @@ async function updateEmployee() {
             name: 'role_id'
         },
     ])
+    // console.log(employee)
     await db.updateEmployee(employee);
     init();
 };
