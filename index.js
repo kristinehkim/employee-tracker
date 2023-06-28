@@ -25,6 +25,9 @@ const init = async () => {
             case 'Add Employee':
                 addEmployee();
                 break;
+            case 'Update Employee Role':
+                updateEmployee();
+                break;
         }
     })
 
@@ -61,7 +64,7 @@ async function addDepartment() {
             name: 'name'
         }
     ])
-    await db.addDepartment(department)
+    await db.addDepartment(department);
     init();
 };
 
@@ -91,19 +94,19 @@ async function addRole() {
             name: 'department_id'
         }
     ])
-    await db.addRole(role)
+    await db.addRole(role);
     init();
 };
 
 async function addEmployee() {
     const roles = await db.viewAllRoles();
-    console.log(roles);
+    // console.log(roles);
     const roleChoices = roles.map(({id, title}) => ({
         name: title,
         value: id
     }));
     const managers = await db.viewAllEmployees();
-    console.log(managers);
+    // console.log(managers);
     const managerChoices = managers.map(({id, manager}) => ({
         name: manager,
         value: id
@@ -134,31 +137,40 @@ async function addEmployee() {
         },
 
     ]) 
-    await db.addEmployee(employee) 
+    await db.addEmployee(employee); 
     init();
     };
 
 async function updateEmployee() {
-    let updateEmployee = await db.query('SELECT * FROM employee');
-    let assignedRole = await db.query('SELECT title FROM role');
-    inquirer.prompt([
+    const updateEmployees = await db.viewAllEmployees();
+    const updateEmployeeChoices = updateEmployees.map(({id, first_name}) => ({
+        name: first_name,
+        value: id
+    }));
+
+    const assignRoles = await db.viewAllRoles();
+    const assignRolesChoices = assignRoles.map(({id, title}) => ({
+        name: title,
+        value: id
+    }));
+    
+    const employee = await inquirer.prompt([
         {
             type: 'list',
             message: "Which employee's role do you want to update?",
-            choices: updateEmployee.map(obj => obj.first_name && obj.last_name),
-            name: 'employeeName'
+            choices: updateEmployeeChoices,
+            name: 'first_name'
         },
         {
             type: 'list',
             message: "Which role do you want to assign the selected employee?",
-            choices: assignedRole.map(obj => obj.title),
-            name: 'assignRole'
+            choices: assignRolesChoices,
+            name: 'role_id'
         },
-    ]).then(response => {
-        let employeeToBeUpdated = updateEmployee.find((obj) => obj.first_name && obj.last_name === response.employee);
-        let assignRoleToEmployee = assignedRole.find((obj) => obj.title);
-    })
-}
+    ])
+    await db.updateEmployee(employee);
+    init();
+    };
 
 
 // switch statements for what they choose call the function when they choose it
