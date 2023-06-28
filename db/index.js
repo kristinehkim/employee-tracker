@@ -4,6 +4,7 @@ class DB {
     constructor(connection) {
         this.connection = connection;
     }
+
     viewAllDepartments() {
         return this.connection.query(
             `
@@ -15,6 +16,7 @@ class DB {
             `
         )
     }
+
     viewAllRoles() {
         return this.connection.query(
             `
@@ -31,6 +33,7 @@ class DB {
             `
         )
     }
+
     viewAllEmployees() {
         return this.connection.query(
             `
@@ -50,6 +53,7 @@ class DB {
             `
         )
     }
+
     addDepartment(department) {
         return this.connection.query(
             `INSERT INTO 
@@ -59,6 +63,7 @@ class DB {
 
         )
     }
+
     addRole(role) {
         return this.connection.query(
             `INSERT INTO 
@@ -68,6 +73,7 @@ class DB {
 
         )
     }
+
     addEmployee(employee) {
         return this.connection.query(
             `INSERT INTO 
@@ -78,18 +84,16 @@ class DB {
         )
     }
 
-    updateEmployee(employee, role_id) {
+    updateEmployee(role_id, employee) {
         return this.connection.query(
             `UPDATE 
                 employee
-            SET ?
+            SET role_id = ?
             WHERE id = ?`,
-            [employee, role_id]
+            [role_id, employee]
         )
     }
-  
-
 }
 
 
-module.exports = new DB(connection)
+module.exports = new DB(connection);

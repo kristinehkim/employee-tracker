@@ -1,6 +1,6 @@
 # Employee Tracker
-> Outline a brief description of your project.
-> Live demo [_here_](https://drive.google.com/file/d/1mBIRHvLHRrFKjGhbyAXqTeGo_2AONWu9/view). <!-- If you have the project hosted somewhere, include the link here. -->
+> This is a command-line application to manage a company's employee database, using Node.js, Inquirer, and MySQL.
+> Walkthrough Video [_here_](https://drive.google.com/file/d/1mBIRHvLHRrFKjGhbyAXqTeGo_2AONWu9/view). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -21,20 +21,23 @@
 - What problem does it (intend to) solve?
 - What is the purpose of your project?
 - Why did you undertake it?
+This is a command-line application to access a company's employee database.  When the user clicks on View All Departments, View all Roles, or View all Employees, a table showing that information is displayed.  The user can click on Add Department, Add Role, or Add Employee which will prompt additional questions about the information to add a department, role, or employee. Then, click on View Departments, Roles, or Employees to see it included in the table.  The user can also go to Update Employee Role to change the role of an existing employee which will also be updated and able to view on the employee table.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 
 ## Technologies Used
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
+- console.table 0.10.0
+- dotenv "^8.2.0"
+- inquirer ^8.2.4
+- mysql2 ^2.2.5
+- util ^0.12.5
+- node.js
 
 
 ## Features
-List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
+- View tables with database information by clicking on View All Departments, Roles, or Employees. 
+- Click on Add Department, Role, or Employee to be prompted with additional questions that will add the information to the corresponding table.
+- Click on Update Employee Role to be prompted with additional questions and that information will be updated in the employee table.
 
 
 ## Screenshots
@@ -43,20 +46,26 @@ List the ready features here:
 
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
-
-Proceed to describe how to install / setup one's local environment / get started with the project.
-
+In order to use this application, the following are required:
+- Node.js
+- Node package modules
+- Inquirer 8.2.4
+- MySQL
+- console.table 
+- dotenv
+- util
 
 ## Usage
-How does one go about using it?
-Provide various use cases and code examples here.
 
-`write-your-code-here`
+`npm i`
+
+`npm run start`
+
+`node app.js`
 
 
 ## Project Status
-Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are no longer working on it, provide reasons why.
+Project is: _in progress_.
 
 
 ## Room for Improvement
@@ -72,14 +81,10 @@ To do:
 
 
 ## Acknowledgements
-Give credit here.
-- This project was inspired by...
-- This project was based on [this tutorial](https://www.example.com).
-- Many thanks to...
-
+- Many thanks to my instructor, Michael Pacheco, the TAs, Nirav and Julius, tutor Dane Shrewsbury, and all the AskBCS learning assistants.
 
 ## Contact
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
+Created by Kristine Kim.  Feel free to contact me at kristinehkim@gmail.com!
 
 
 <!-- Optional -->

@@ -20,13 +20,9 @@ db.connect((err) => {
     console.log('Connected to employeeTracker_db database.');
   });
 
-db.connect()
+db.connect();
 
 // set up our connection to use promises which allows for async await in queries
-db.query = util.promisify(db.query)
+db.query = util.promisify(db.query);
 
-module.exports = db
-
-// user: 'root',
-// password: '!loveCoding25',
-// database: 'employeeTracker_db'
+module.exports = db;

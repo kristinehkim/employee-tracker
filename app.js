@@ -28,6 +28,8 @@ const init = async () => {
             case 'Update Employee Role':
                 updateEmployee();
                 break;
+            default:
+                console.log('Please choose an option above.');
         }
     })
 
@@ -42,13 +44,11 @@ async function viewAllDepartments() {
     init();
 };
 
-
 async function viewAllRoles() {
     const roles = await db.viewAllRoles();
     console.table(roles);
     init();
 };
-
 
 async function viewAllEmployees() {
     const employees = await db.viewAllEmployees();
@@ -135,14 +135,12 @@ async function addEmployee() {
         },
 
     ])
-    console.log(employee);
     await db.addEmployee(employee);
     init();
 };
 
 async function updateEmployee() {
     const updateEmployees = await db.viewAllEmployees();
-    // console.log(updateEmployees);
     const updateEmployeeChoices = updateEmployees.map(({ id, first_name, last_name }) => ({
         name: `${first_name} ${last_name}`,
         value: id
@@ -168,8 +166,7 @@ async function updateEmployee() {
             name: 'role_id'
         },
     ])
-    // console.log(employee)
-    await db.updateEmployee(employee);
+    await db.updateEmployee(employee.role_id, employee.first_name);
     init();
 };
 
