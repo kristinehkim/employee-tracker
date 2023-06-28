@@ -46,14 +46,14 @@ async function viewAllDepartments() {
 async function viewAllRoles() {
     const roles = await db.viewAllRoles();
     console.table(roles);
-        init();
+    init();
 };
 
 
 async function viewAllEmployees() {
     const employees = await db.viewAllEmployees();
     console.table(employees);
-        init();
+    init();
 };
 
 async function addDepartment() {
@@ -70,8 +70,8 @@ async function addDepartment() {
 
 async function addRole() {
     const departments = await db.viewAllDepartments();
-    const departmentChoices = departments.map(({id, name}) => ({
-        name: name, 
+    const departmentChoices = departments.map(({ id, name }) => ({
+        name: name,
         value: id
     }));
 
@@ -100,15 +100,13 @@ async function addRole() {
 
 async function addEmployee() {
     const roles = await db.viewAllRoles();
-    // console.log(roles);
-    const roleChoices = roles.map(({id, title}) => ({
+    const roleChoices = roles.map(({ id, title }) => ({
         name: title,
         value: id
     }));
     const managers = await db.viewAllEmployees();
-    // console.log(managers);
-    const managerChoices = managers.map(({id, manager}) => ({
-        name: manager,
+    const managerChoices = managers.map(({ id, first_name, last_name }) => ({
+        name: `${first_name} ${last_name}`,
         value: id
     }));
 
@@ -136,30 +134,32 @@ async function addEmployee() {
             name: 'manager_id'
         },
 
-    ]) 
-    await db.addEmployee(employee); 
+    ])
+    await db.addEmployee(employee);
     init();
-    };
+};
 
 async function updateEmployee() {
     const updateEmployees = await db.viewAllEmployees();
-    const updateEmployeeChoices = updateEmployees.map(({id, first_name}) => ({
-        name: first_name,
+    // console.log(updateEmployees);
+    const updateEmployeeChoices = updateEmployees.map(({ id, first_name, last_name }) => ({
+        name: `${first_name} ${last_name}`,
         value: id
     }));
 
     const assignRoles = await db.viewAllRoles();
-    const assignRolesChoices = assignRoles.map(({id, title}) => ({
+    const assignRolesChoices = assignRoles.map(({ id, title }) => ({
         name: title,
         value: id
     }));
-    
+
     const employee = await inquirer.prompt([
         {
             type: 'list',
             message: "Which employee's role do you want to update?",
             choices: updateEmployeeChoices,
-            name: 'first_name'
+            name: 'first_name',
+            name: 'last_name'
         },
         {
             type: 'list',
@@ -170,15 +170,6 @@ async function updateEmployee() {
     ])
     await db.updateEmployee(employee);
     init();
-    };
+};
 
 
-// switch statements for what they choose call the function when they choose it
-// a separate page of the query functions
-// make const so you can import in both files
-// .then(function ({task}) {
-//     switch(task) {
-//         case 'View All Departments':
-//             viewAllDepartments();
-//             break;  
-//     }
