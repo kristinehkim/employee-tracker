@@ -1,6 +1,6 @@
 # Employee Tracker
 > This is a command-line application to manage a company's employee database, using Node.js, Inquirer, and MySQL.
-> Walkthrough Video [_here_](https://drive.google.com/file/d/1mBIRHvLHRrFKjGhbyAXqTeGo_2AONWu9/view). <!-- If you have the project hosted somewhere, include the link here. -->
+> Walkthrough Video [_here_](https://drive.google.com/file/d/1CXIKChXnqI6IN1YB4u2BUT9imzVp2cL-/view). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -17,10 +17,6 @@
 
 
 ## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
 This is a command-line application to access a company's employee database.  When the user clicks on View All Departments, View all Roles, or View all Employees, a table showing that information is displayed.  The user can click on Add Department, Add Role, or Add Employee which will prompt additional questions about the information to add a department, role, or employee. Then, click on View Departments, Roles, or Employees to see it included in the table.  The user can also go to Update Employee Role to change the role of an existing employee which will also be updated and able to view on the employee table.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
@@ -41,7 +37,7 @@ This is a command-line application to access a company's employee database.  Whe
 
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![Example screenshot](./assets/employee-tracker.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
 
 
@@ -66,18 +62,6 @@ In order to use this application, the following are required:
 
 ## Project Status
 Project is: _in progress_.
-
-
-## Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
-
-Room for improvement:
-- Improvement to be done 1
-- Improvement to be done 2
-
-To do:
-- Feature to be added 1
-- Feature to be added 2
 
 
 ## Acknowledgements

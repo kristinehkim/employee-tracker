@@ -35,8 +35,6 @@ const init = async () => {
 
 };
 
-init();
-
 
 async function viewAllDepartments() {
     const departments = await db.viewAllDepartments();
@@ -171,3 +169,4 @@ async function updateEmployee() {
 };
 
 
+init();
